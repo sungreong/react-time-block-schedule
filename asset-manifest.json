@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/react-time-block-schedule/static/css/main.66af3a46.css",
+    "main.js": "/react-time-block-schedule/static/js/main.6c7da541.js",
+    "static/js/453.359e9ea4.chunk.js": "/react-time-block-schedule/static/js/453.359e9ea4.chunk.js",
+    "index.html": "/react-time-block-schedule/index.html",
+    "main.66af3a46.css.map": "/react-time-block-schedule/static/css/main.66af3a46.css.map",
+    "main.6c7da541.js.map": "/react-time-block-schedule/static/js/main.6c7da541.js.map",
+    "453.359e9ea4.chunk.js.map": "/react-time-block-schedule/static/js/453.359e9ea4.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.66af3a46.css",
+    "static/js/main.6c7da541.js"
+  ]
+}
