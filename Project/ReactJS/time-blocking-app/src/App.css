@@ -188,3 +188,40 @@
 .close-btn:hover {
   background-color: #0056b3;
 }
+
+.delete-btn {
+  cursor: pointer;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 8px;
+  margin-right: 8px; /* 시간 블록 텍스트와의 간격 */
+  float: right; /* 시간 블록의 오른쪽에 버튼 배치 */
+}
+
+.centered-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+}
+
+.select-box {
+  width: 200px;
+}
+
+.select-box option {
+  text-align: center;
+}
+
+
+.save-button-container {
+  display: flex;
+  justify-content: flex-end; /* 화면 오른쪽으로 정렬 */
+}
+
+.modal-content p {
+  text-align: center;
+
+}

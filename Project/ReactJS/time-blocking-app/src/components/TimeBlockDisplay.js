@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-function TimeBlockDisplay({ blocks, selectedDate }) {
+function TimeBlockDisplay({ blocks, selectedDate, deleteBlock  }) {
   const [selectedBlockId, setSelectedBlockId] = useState(null);
 
   // 선택된 날짜에 해당하는 blocks만 필터링
@@ -40,6 +40,11 @@ function TimeBlockDisplay({ blocks, selectedDate }) {
     <div>
       {filteredBlocks.length > 0 ? filteredBlocks.map((block, index) => (
         <div key={index} className="time-block-item" onClick={() => toggleBlockDetails(index)}>
+          <button className="delete-btn" onClick={(e) => {
+            e.stopPropagation(); // 이벤트 버블링 방지
+            deleteBlock(index); // 현재 블록 삭제
+          }}>X</button>
+
           <p>{block.startTime} ~ {block.endTime}: {block.task}</p>
           {/* 선택된 블록의 상세 정보 표시 */}
           {selectedBlockId === index && (

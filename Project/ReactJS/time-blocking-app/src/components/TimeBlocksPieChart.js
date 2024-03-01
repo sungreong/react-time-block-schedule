@@ -10,7 +10,6 @@ function TimeBlocksClock({ blocks, selectedDate }) {
     const localDate = new Date();
     // const offset = date.getTimezoneOffset(); // 브라우저의 타임존과 UTC와의 차이(분)
     // const localDate = new Date(date.getTime() - (offset * 60 * 1000)); // 로컬 타임존으로 조정    setCurrentTime(currentTimeAsia);
-    console.log("updateTime",localDate);
     setCurrentTime(localDate);
   }
 
@@ -50,14 +49,10 @@ function TimeBlocksClock({ blocks, selectedDate }) {
   const currentTimeToAngle = () => {
     const hours = currentTime.getHours();
     const minutes = currentTime.getMinutes();
-    console.log("current",currentTime);
-    console.log("currentTimeToAngle",hours,minutes);
     return ((hours % 24) + (minutes / 60)) / 24 * 360;
   };
   const drawCurrentTimeMarker = () => {
-    console.log("drawCurrentTimeMarker",currentTime);
     const currentDateString = toLocalDateString(new Date());
-    console.log("check",currentDateString, selectedDate)
     if (currentDateString !== selectedDate) return null; // 선택된 날짜와 다르면 표시하지 않음
     const startAngle = timeToAngle("00:00");
     const endAngle = currentTimeToAngle();
