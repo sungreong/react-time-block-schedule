@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/react-time-block-schedule/static/css/main.64d9e253.css",
-    "main.js": "/react-time-block-schedule/static/js/main.fb4bdba4.js",
-    "static/js/453.359e9ea4.chunk.js": "/react-time-block-schedule/static/js/453.359e9ea4.chunk.js",
+    "main.css": "/react-time-block-schedule/static/css/main.6918db84.css",
+    "main.js": "/react-time-block-schedule/static/js/main.2f4e87e1.js",
+    "static/js/453.a5823103.chunk.js": "/react-time-block-schedule/static/js/453.a5823103.chunk.js",
     "index.html": "/react-time-block-schedule/index.html",
-    "main.64d9e253.css.map": "/react-time-block-schedule/static/css/main.64d9e253.css.map",
-    "main.fb4bdba4.js.map": "/react-time-block-schedule/static/js/main.fb4bdba4.js.map",
-    "453.359e9ea4.chunk.js.map": "/react-time-block-schedule/static/js/453.359e9ea4.chunk.js.map"
+    "main.6918db84.css.map": "/react-time-block-schedule/static/css/main.6918db84.css.map",
+    "main.2f4e87e1.js.map": "/react-time-block-schedule/static/js/main.2f4e87e1.js.map",
+    "453.a5823103.chunk.js.map": "/react-time-block-schedule/static/js/453.a5823103.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.64d9e253.css",
-    "static/js/main.fb4bdba4.js"
+    "static/css/main.6918db84.css",
+    "static/js/main.2f4e87e1.js"
   ]
 }
