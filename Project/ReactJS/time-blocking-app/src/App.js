@@ -131,7 +131,8 @@ function App() {
   };
 
   const ModalDiv = () => {
-    return (    <div className="modal">
+    return (    
+    <div className="modal">
           <div className="modal-content">
             <p><strong>타임 블로킹 목록 추가</strong></p>
             <TimeBlockForm onSubmit={(blocks) => { addBlocks(blocks); toggleModal(); }} />
@@ -166,8 +167,21 @@ function App() {
 
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
+    const arrow = document.querySelector('.arrow');
+    arrow.classList.toggle('collapsed');
   };
-
+  function ToggleArrow() {
+      const toggleSidebar = () => {
+      setIsCollapsed(!isCollapsed);
+    };
+  
+    return (
+      <div className='toggle-container' onClick={toggleSidebar}>
+        <div className={`arrow ${isCollapsed ? 'collapsed' : ''}`}></div>
+      </div>
+    );
+  }
+  
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
         {/* 왼쪽 패널 */}
@@ -184,17 +198,13 @@ function App() {
           <div style={{ width: isCollapsed ? '0%' : '30%', transition: 'width 0.3s', overflow: 'hidden' }}>
             {!isCollapsed && (
               <>
-                <button onClick={toggleSidebar}>접기</button>
                 <ModalDiv />  
-                
               </>
             )}
           </div>
             {/* 오른쪽 패널 */}
-          <div style={{ width: isCollapsed ? '100%' : '70%', transition: 'width 0.3s' }}>
-            {isCollapsed && (
-              <button onClick={toggleSidebar} style={{ position: 'absolute', marginLeft: '0px' }}>펼치기</button>
-            )}
+          <ToggleArrow />
+          <div style={{ width: isCollapsed ? '95%' : '65%', transition: 'width 0.3s' }}>
             <div>
             <div className="centered-container">
               <select value={selectedOption} onChange={e => setSelectedOption(e.target.value)} className="select-box">
