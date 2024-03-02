@@ -217,8 +217,8 @@
 
 .modal-content {
   background-color: #fefefe;
-  margin: 1vh 1vh 1vh 2vh;
-  padding: 20px;
+  margin: 1vh 1vh 1vh 0.5vh;
+  padding: 10px;
   border: 1px solid #888;
   width: 80%;
   border-radius: 5px;

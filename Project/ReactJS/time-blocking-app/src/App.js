@@ -148,13 +148,16 @@ function App() {
             </div>
                   
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1vh', marginBottom: "1vh"}}>
+              
               <input type="file" onChange={handleFileChange} accept="application/json" />
             </div>
+            <p></p>
             <hr />
             <p><strong>타임 블록 저장하기</strong></p>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1vh' , marginBottom: "1vh"}}>
               <button onClick={handleDownload}>Download Time Block</button>
             </div>
+            <p></p>
             <hr /> 
             </div>
         </div>)
