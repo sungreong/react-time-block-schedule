@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/react-time-block-schedule/static/css/main.728938a9.css",
-    "main.js": "/react-time-block-schedule/static/js/main.24e8765e.js",
+    "main.css": "/react-time-block-schedule/static/css/main.3830383b.css",
+    "main.js": "/react-time-block-schedule/static/js/main.0f970c8e.js",
     "static/js/453.a5823103.chunk.js": "/react-time-block-schedule/static/js/453.a5823103.chunk.js",
     "index.html": "/react-time-block-schedule/index.html",
-    "main.728938a9.css.map": "/react-time-block-schedule/static/css/main.728938a9.css.map",
-    "main.24e8765e.js.map": "/react-time-block-schedule/static/js/main.24e8765e.js.map",
+    "main.3830383b.css.map": "/react-time-block-schedule/static/css/main.3830383b.css.map",
+    "main.0f970c8e.js.map": "/react-time-block-schedule/static/js/main.0f970c8e.js.map",
     "453.a5823103.chunk.js.map": "/react-time-block-schedule/static/js/453.a5823103.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.728938a9.css",
-    "static/js/main.24e8765e.js"
+    "static/css/main.3830383b.css",
+    "static/js/main.0f970c8e.js"
   ]
 }
