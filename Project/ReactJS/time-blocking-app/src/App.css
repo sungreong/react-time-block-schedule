@@ -37,7 +37,7 @@
   /* display: flex; */
 }
 .time-blocks-clock {
-  flex: 0 0 50%; /* 기존 설정 유지 */
+  flex: 0 0 65%; /* 기존 설정 유지 */
   position: relative; /* 날짜 선택 select를 위한 포지셔닝 컨텍스트 설정 */
   display: flex; /* Flexbox 레이아웃 사용 */
   justify-content: center; /* 중앙 정렬 */
@@ -204,7 +204,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 10vh;
+  height: 3vh;
 }
 
 .select-box {
@@ -215,13 +215,17 @@
   text-align: center;
 }
 
+.modal-content {
+  background-color: #fefefe;
+  margin: 1vh 1vh 1vh 2vh;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
-.save-button-container {
-  display: flex;
-  justify-content: flex-end; /* 화면 오른쪽으로 정렬 */
 }
 
 .modal-content p {
   text-align: center;
-
 }

@@ -37,7 +37,7 @@ function App() {
     if (!file) return;
 
     const reader = new FileReader();
-
+    
     reader.onload = (e) => {
       const content = e.target.result;
       if (file.name.endsWith('.csv')) {
@@ -96,8 +96,6 @@ function App() {
   const [selectedDate, setSelectedDate] = useState(''); // 날짜 선택을 위한 상태
   const selectRef = useRef(null); // select 요소에 대한 참조 생성
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isModalSaveOpen, setIsModalSaveOpen] = useState(false);
-
   const [selectedOption, setSelectedOption] = useState(''); // 컴포넌트 선택을 위한 상태
   
 
@@ -127,83 +125,106 @@ function App() {
     setIsModalOpen(!isModalOpen);
   };
 
-  const toggleModalSave = () => {
-    setIsModalSaveOpen(!isModalSaveOpen);
-  };
 
   const deleteBlock = (blockIndex) => {
     setBlocks(currentBlocks => currentBlocks.filter((_, index) => index !== blockIndex));
   };
 
-
-  
-  return (
-    <div>
-      <h1>시간 스케줄 관리 앱</h1>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <div>
-          <button onClick={toggleModal}>
-            {isModalOpen ? '시간 블록 접기' : '시간 블록 추가'}
-          </button>
-        </div>
-        <div className="save-button-container">
-          <button onClick={handleDownload}>Download Time Block</button>
-        </div>
-      </div>
-
-      {isModalOpen && (
-        <div className="modal">
+  const ModalDiv = () => {
+    return (    <div className="modal">
           <div className="modal-content">
-            {/* JSON 파일로부터 시간 블록 데이터 불러오기 */}
-            <p>타임 블로킹 목록 추가</p>
+            <p><strong>타임 블로킹 목록 추가</strong></p>
             <TimeBlockForm onSubmit={(blocks) => { addBlocks(blocks); toggleModal(); }} />
-            <p>파일로 불러오기(csv,json)</p>
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1vh' }}>
+            <hr />
+            <p><strong>파일로 불러오기(csv,json)</strong></p>
+            <div style={{ marginBottom: "10px" }}>
+            데이터 포맷:
+            <ul>
+              <li><code>date(YYYY-MM-DD)</code></li>
+              <li><code>startTime(HH:MM)</code></li>
+              <li><code>endTime(HH:MM)</code></li>
+              <li><code>task(Any)</code></li>
+            </ul>
+            </div>
+                  
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1vh', marginBottom: "1vh"}}>
               <input type="file" onChange={handleFileChange} accept="application/json" />
             </div>
+            <hr />
+            <p><strong>타임 블록 저장하기</strong></p>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1vh' , marginBottom: "1vh"}}>
+              <button onClick={handleDownload}>Download Time Block</button>
+            </div>
+            <hr /> 
+            </div>
+        </div>)
+  };
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+        {/* 왼쪽 패널 */}
+        <div style={{ 
+            textAlign: 'center', 
+            fontSize: '24px', // 글자 크기
+            fontWeight: 'bold', // 글자 굵기
+            padding: '20px', // 상하좌우 여백
+            backgroundColor: '#f0f0f0', // 배경색
+            color: '#333', // 글자색
+            borderBottom: '2px solid #ccc' // 하단 테두리
+          }}>시간 스케줄 관리 앱</div>
+        <div style={{ display: 'flex', flex: 1 }}>
+          <div style={{ width: isCollapsed ? '0%' : '30%', transition: 'width 0.3s', overflow: 'hidden' }}>
+            {!isCollapsed && (
+              <>
+                <button onClick={toggleSidebar}>접기</button>
+                <ModalDiv />  
+                
+              </>
+            )}
+          </div>
+            {/* 오른쪽 패널 */}
+          <div style={{ width: isCollapsed ? '100%' : '70%', transition: 'width 0.3s' }}>
+            {isCollapsed && (
+              <button onClick={toggleSidebar} style={{ position: 'absolute', marginLeft: '0px' }}>펼치기</button>
+            )}
+            <div>
+            <div className="centered-container">
+              <select value={selectedOption} onChange={e => setSelectedOption(e.target.value)} className="select-box">
+                <option value="">선택...</option>
+                <option value="timeBlocks">시간 블록 & 디스플레이</option>
+                <option value="calendar">달력</option>
+              </select>
+              </div>
+              {selectedOption === 'timeBlocks' && (
+              <div className='time-blocks-container'>
+                <div className="time-blocks-clock">
+                  <select ref={selectRef} value={selectedDate} onChange={e => setSelectedDate(e.target.value)}>
+                    <option value="">날짜 선택...</option>
+                    {uniqueDates.map(date => (
+                      <option key={date} value={date}>{date}</option>
+                    ))}
+                  </select>
+                  <TimeBlocksClock blocks={blocks} selectedDate={selectedDate} />
+                </div>
+                <div className="time-block-display">
+                  <TimeBlockDisplay blocks={blocks} selectedDate={selectedDate} deleteBlock={deleteBlock}/>
+                </div>
+                </div>
+              )}
+              {selectedOption === 'calendar' && (
+                <div>
+                  <MyCalendar blocks={blocks} setBlocks={setBlocks} />
+                </div>
+              )}
           </div>
         </div>
-      )}
-      
-
-
-    
-      
-      
-      
-      <div>
-        <div className="centered-container">
-          <select value={selectedOption} onChange={e => setSelectedOption(e.target.value)} className="select-box">
-            <option value="">선택...</option>
-            <option value="timeBlocks">시간 블록 & 디스플레이</option>
-            <option value="calendar">달력</option>
-          </select>
-        </div>
-      {selectedOption === 'timeBlocks' && (
-        <div className='time-blocks-container'>
-          <div className="time-blocks-clock">
-            <select ref={selectRef} value={selectedDate} onChange={e => setSelectedDate(e.target.value)}>
-              <option value="">날짜 선택...</option>
-              {uniqueDates.map(date => (
-                <option key={date} value={date}>{date}</option>
-              ))}
-            </select>
-            <TimeBlocksClock blocks={blocks} selectedDate={selectedDate} />
-          </div>
-          <div className="time-block-display">
-            <TimeBlockDisplay blocks={blocks} selectedDate={selectedDate} deleteBlock={deleteBlock}/>
-          </div>
-        </div>
-      )}
-
-      {selectedOption === 'calendar' && (
-        <div>
-          <MyCalendar blocks={blocks} setBlocks={setBlocks} />
-        </div>
-      )}
-    </div>
-
-    </div>
+      </div>
+    </div>  
   );
 }
 
