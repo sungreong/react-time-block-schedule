@@ -150,8 +150,8 @@ const drawClockMarkers = () => {
   const markers = [];
   for (let hour = 1; hour <= 24; hour++) {
     const angle = (hour / 24) * 2 * Math.PI; // 시간에 따른 각도 계산 (라디안 단위)
-    const innerRadius = radius - 5; // 원에서 조금 안쪽으로
-    const outerRadius = radius + 5; // 원에서 바깥쪽으로
+    const innerRadius = radius - 2; // 원에서 조금 안쪽으로
+    const outerRadius = radius + 2; // 원에서 바깥쪽으로
     // 내부 꼭지점 좌표 (원에 더 가까움)
     const innerX = cx + innerRadius * Math.cos(angle - Math.PI / 2);
     const innerY = cy + innerRadius * Math.sin(angle - Math.PI / 2);
