@@ -181,7 +181,18 @@ function App() {
       </div>
     );
   }
+
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 800);
+
+  useEffect(() => {
+    const handleResize = () => {
+      console.log(window.innerWidth);
+      setIsMobile(window.innerWidth <= 800);
+    };
   
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
         {/* 왼쪽 패널 */}
@@ -195,7 +206,7 @@ function App() {
             borderBottom: '2px solid #ccc' // 하단 테두리
           }}>시간 스케줄 관리 앱</div>
         <div style={{ display: 'flex', flex: 1 }}>
-          <div style={{ width: isCollapsed ? '0%' : '30%', transition: 'width 0.3s', overflow: 'hidden' }}>
+          <div style={{ width: isCollapsed ? '0%' : (isMobile ? '50%' : '30%'), transition: 'width 0.3s', overflow: 'hidden' }}>
             {!isCollapsed && (
               <>
                 <ModalDiv />  
@@ -204,7 +215,7 @@ function App() {
           </div>
             {/* 오른쪽 패널 */}
           <ToggleArrow />
-          <div style={{ width: isCollapsed ? '95%' : '65%', transition: 'width 0.3s' }}>
+          <div style={{ width: isCollapsed ? '95%' : (isMobile ? '45%' : '65%'), transition: 'width 0.3s' }}>
             <div>
             <div className="centered-container">
               <select value={selectedOption} onChange={e => setSelectedOption(e.target.value)} className="select-box">

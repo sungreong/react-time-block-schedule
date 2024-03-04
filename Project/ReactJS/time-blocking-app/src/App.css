@@ -288,3 +288,30 @@
   transform: rotate(-45deg);
   transform-origin: bottom right;
 }
+
+
+@media (max-width: 1000px) {
+  .time-blocks-container,
+  .time-block-display,
+  .time-blocks-clock {
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+  }
+
+  .time-blocks-date,
+  .time-blocks-clock {
+    height: auto;
+    position: static; /* 모바일 화면에서는 절대위치 대신 정적 위치 사용 */
+  }
+
+  .time-block-form,
+  .modal-content {
+    max-width: 100%; /* 모바일 화면을 위해 최대 너비 조정 */
+    margin: 10px; /* 모바일 화면에서의 여백 조정 */
+  }
+
+  .toggle-container {
+    width: 10%; /* 모바일에서의 toggle 버튼 크기 조정 */
+  }
+}
