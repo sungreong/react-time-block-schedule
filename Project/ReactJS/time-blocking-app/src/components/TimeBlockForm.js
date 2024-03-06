@@ -1,15 +1,24 @@
 import React, { useState, useEffect } from 'react';
 
-function TimeBlockForm({ onSubmit }) {
+function current_date() {
+  const today = new Date();
+  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const localDate = today.toLocaleDateString('en-CA', { timeZone: timeZone });
+  return localDate;
+
+}
+
+function TimeBlockForm({ onSubmit , onUpdateDate  }) {
   const [date, setDate] = useState(''); // 날짜 상태 추가
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
   const [task, setTask] = useState('');
 
+  
   useEffect(() => {
     // 오늘 날짜 설정
-    const today = new Date().toISOString().split('T')[0];
-    setDate(today);
+    const localDate = current_date()
+    setDate(localDate); // 'YYYY-MM-DD' 형식의 날짜로 상태 업데이트
   }, []);
 
   const handleSubmit = (e) => {
@@ -50,6 +59,12 @@ function TimeBlockForm({ onSubmit }) {
       setStartTime(newEndTime);
     }
   };
+  // 오늘 날짜로 일정 바꾸기 버튼 클릭 시
+  const handleTodaySetting = () => {
+    const today = current_date();
+    onUpdateDate(today); // 오늘 날짜로 모든 블록 업데이트
+
+  }
   return (
     <form onSubmit={handleSubmit} className="time-block-form">
       <div className="form-group">
@@ -95,6 +110,11 @@ function TimeBlockForm({ onSubmit }) {
       </div>
       <button type="submit" className="submit-btn">추가하기</button>
       <button type="button" onClick={handleWorkdaySetting} className="preset-btn">직장인 셋팅</button>
+      <button 
+      type="button" 
+      className='preset-btn' 
+      onClick={handleTodaySetting} 
+      >오늘 날짜로 일정 바꾸기</button>
     </form>
   );
 }

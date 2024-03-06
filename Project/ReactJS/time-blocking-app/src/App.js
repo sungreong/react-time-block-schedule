@@ -3,6 +3,7 @@ import TimeBlockForm from './components/TimeBlockForm';
 import TimeBlockDisplay from './components/TimeBlockDisplay';
 import TimeBlocksClock from './components/TimeBlocksPieChart';
 import MyCalendar from './components/Calendar';
+import DigitalClock from './components/DigitalClock';
 import './App.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
@@ -92,6 +93,11 @@ function App() {
   const addBlocks = (newBlocks) => {
     setBlocks(currentBlocks => [...currentBlocks, ...newBlocks]);
   };
+  const updateBlocksDate = (newDate) => {
+    setBlocks(currentBlocks =>
+      currentBlocks.map(block => ({ ...block, date: newDate }))
+    );
+  };
 
   const [selectedDate, setSelectedDate] = useState(''); // 날짜 선택을 위한 상태
   const selectRef = useRef(null); // select 요소에 대한 참조 생성
@@ -135,7 +141,10 @@ function App() {
     <div className="modal">
           <div className="modal-content">
             <p><strong>타임 블로킹 목록 추가</strong></p>
-            <TimeBlockForm onSubmit={(blocks) => { addBlocks(blocks); toggleModal(); }} />
+            <TimeBlockForm 
+            onSubmit={(blocks) => { addBlocks(blocks); toggleModal(); }} 
+            onUpdateDate={updateBlocksDate} // 여기에 추가
+            />
             <hr />
             <p><strong>파일로 불러오기(csv,json)</strong></p>
             <div style={{ marginBottom: "10px" }}>
@@ -196,17 +205,26 @@ function App() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
         {/* 왼쪽 패널 */}
-        <div style={{ 
-            textAlign: 'center', 
+        <div style={{
+          display: 'flex', // Flexbox 레이아웃 적용
+          justifyContent: 'center', // 가로축 중앙 정렬
+          alignItems: 'center', // 세로축 중앙 정렬
+          padding: '20px', // 상하좌우 여백
+          backgroundColor: '#f0f0f0', // 배경색
+          color: '#333', // 글자색
+          borderBottom: '2px solid #ccc', // 하단 테두리
+        }}>
+          <div style={{ 
+            marginRight: '20px', // 시계와 제목 사이 간격
             fontSize: '24px', // 글자 크기
             fontWeight: 'bold', // 글자 굵기
-            padding: '20px', // 상하좌우 여백
-            backgroundColor: '#f0f0f0', // 배경색
-            color: '#333', // 글자색
-            borderBottom: '2px solid #ccc' // 하단 테두리
-          }}>시간 스케줄 관리 앱</div>
+          }}>
+            시간 스케줄 관리 앱
+          </div>
+          <DigitalClock />
+        </div>
         <div style={{ display: 'flex', flex: 1 }}>
-          <div style={{ width: isCollapsed ? '0%' : (isMobile ? '50%' : '30%'), transition: 'width 0.3s', overflow: 'hidden' }}>
+          <div style={{ width: isCollapsed ? '0%' : (isMobile ? '50%' : '20%'), transition: 'width 0.3s', overflow: 'hidden' }}>
             {!isCollapsed && (
               <>
                 <ModalDiv />  
@@ -215,7 +233,7 @@ function App() {
           </div>
             {/* 오른쪽 패널 */}
           <ToggleArrow />
-          <div style={{ width: isCollapsed ? '95%' : (isMobile ? '45%' : '65%'), transition: 'width 0.3s' }}>
+          <div style={{ width: isCollapsed ? '95%' : (isMobile ? '45%' : '80%'), transition: 'width 0.3s' }}>
             <div>
             <div className="centered-container">
               <select value={selectedOption} onChange={e => setSelectedOption(e.target.value)} className="select-box">

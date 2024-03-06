@@ -1,0 +1,26 @@
+/* DigitalClock 컴포넌트의 스타일 */
+.clock-container {
+  display: flex; /* Flexbox 레이아웃 적용 */
+  justify-content: center; /* 가로축에서 중앙 정렬 */
+  align-items: center; /* 세로축에서 중앙 정렬 */
+  font-size: 48px;
+  font-weight: bold;
+
+}
+
+.number-slide {
+  display: inline-block;
+  margin: 0 4px;
+  animation: slide 0.5s ease-in-out;
+  align-items: center; /* 세로축에서 중앙 정렬 */
+  justify-content: center; /* 가로축에서 중앙 정렬 */
+}
+
+@keyframes slide {
+  from {
+    transform: translateY(100%) translateX(0);
+  }
+  to {
+    transform: translateY(-10%) translateX(0); /* 예시로, 최종 위치를 조금 위로 조정 */
+  }
+}
