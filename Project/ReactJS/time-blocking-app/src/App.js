@@ -224,7 +224,7 @@ function App() {
           <DigitalClock />
         </div>
         <div style={{ display: 'flex', flex: 1 }}>
-          <div style={{ width: isCollapsed ? '0%' : (isMobile ? '50%' : '20%'), transition: 'width 0.3s', overflow: 'hidden' }}>
+          <div style={{ width: isCollapsed ? '0%' : (isMobile ? '50%' : '30%'), transition: 'width 0.3s', overflow: 'hidden' }}>
             {!isCollapsed && (
               <>
                 <ModalDiv />  

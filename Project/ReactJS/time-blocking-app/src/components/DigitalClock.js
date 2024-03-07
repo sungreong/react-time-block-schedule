@@ -1,34 +1,59 @@
-import React, { useState, useEffect } from 'react';
-import './DigitalClock.css'; // CSS 파일 임포트
+import React, { useState, useEffect,useRef } from 'react';
+import './DigitalClock.css'; // Ensure to import your CSS correctly
+
+function usePrevious(value) {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  }, [value]); // 값이 변경될 때마다 이전 값을 ref에 저장
+  return ref.current; // 이전 값을 반환
+}
+
 function DigitalClock() {
-  const [hour, setHour] = useState('');
-  const [minute, setMinute] = useState('');
+  // 현재 시간 상태
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  // 이전 시간 상태
+  const previousTime = usePrevious(currentTime);
 
   useEffect(() => {
-    const updateClock = () => {
+    const timerId = setInterval(() => {
       const now = new Date();
-      const newHour = String(now.getHours()).padStart(2, '0');
-      const newMinute = String(now.getMinutes()).padStart(2, '0');
+      setCurrentTime(now);
+    }, 1000);
+    return () => clearInterval(timerId);
+  }, []);
 
-      if (newHour !== hour) setHour(newHour);
-      if (newMinute !== minute) setMinute(newMinute);
-    };
+  const formatDigit = (digit) => digit.toString().padStart(2, '0');
 
-    updateClock();
-    const intervalId = setInterval(updateClock, 1000);
+  const hours = formatDigit(currentTime.getHours());
+  const minutes = formatDigit(currentTime.getMinutes());
+  const seconds = formatDigit(currentTime.getSeconds());
 
-    return () => clearInterval(intervalId);
-  }, [hour, minute]);
+  const renderDigits = (timeString, previousTimeString, type) => (
+    <div className="time-section">
+      {timeString.split('').map((digit, index) => {
+        // 이전 시간과 현재 시간을 비교하여 변화가 있는지 확인
+        const isFlipped = previousTimeString && digit !== previousTimeString[index];
+        return (
+          <span key={`${type}-${index}-${digit}`} className={isFlipped ? 'flip' : ''}>
+            {digit}
+          </span>
+        );
+      })}
+    </div>
+  );
 
   return (
     <div className="clock-container">
-      <div className="number-slide">{hour[0]}</div>
-      <div className="number-slide">{hour[1]}</div>
-      <span>:</span>
-      <div className="number-slide">{minute[0]}</div>
-      <div className="number-slide">{minute[1]}</div>
+      {renderDigits(hours, previousTime && formatDigit(previousTime.getHours()), 'hour')}
+      :
+      {renderDigits(minutes, previousTime && formatDigit(previousTime.getMinutes()), 'minute')}
+      :
+      {renderDigits(seconds, previousTime && formatDigit(previousTime.getSeconds()), 'second')}
     </div>
   );
 }
+
 
 export default DigitalClock;
