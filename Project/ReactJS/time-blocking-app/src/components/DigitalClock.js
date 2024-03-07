@@ -12,6 +12,7 @@ function usePrevious(value) {
 function DigitalClock() {
   // 현재 시간 상태
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [showSeconds, setShowSeconds] = useState(false); // 초를 표시할지 여부를 결정하는 상태
 
   // 이전 시간 상태
   const previousTime = usePrevious(currentTime);
@@ -45,13 +46,19 @@ function DigitalClock() {
   );
 
   return (
-    <div className="clock-container">
-      {renderDigits(hours, previousTime && formatDigit(previousTime.getHours()), 'hour')}
-      :
-      {renderDigits(minutes, previousTime && formatDigit(previousTime.getMinutes()), 'minute')}
-      :
-      {renderDigits(seconds, previousTime && formatDigit(previousTime.getSeconds()), 'second')}
+    <div>
+      <div className="clock-container">
+        {renderDigits(hours, previousTime && formatDigit(previousTime.getHours()), 'hour')}
+        :
+        {renderDigits(minutes, previousTime && formatDigit(previousTime.getMinutes()), 'minute')}
+        {showSeconds && ":"}
+        {showSeconds && renderDigits(seconds, previousTime && formatDigit(previousTime.getSeconds()), 'second')}
+      </div>
+      <button onClick={() => setShowSeconds(!showSeconds)}>
+        {showSeconds ? 'HH:MM' : 'HH:MM:SS'}
+      </button>
     </div>
+
   );
 }
 
