@@ -13,6 +13,7 @@ function DigitalClock() {
   // 현재 시간 상태
   const [currentTime, setCurrentTime] = useState(new Date());
   const [showSeconds, setShowSeconds] = useState(false); // 초를 표시할지 여부를 결정하는 상태
+  const [useFlip, setUseFlip] = useState(false); // flip 애니메이션을 사용할지 결정하는 상태
 
   // 이전 시간 상태
   const previousTime = usePrevious(currentTime);
@@ -35,7 +36,7 @@ function DigitalClock() {
     <div className="time-section">
       {timeString.split('').map((digit, index) => {
         // 이전 시간과 현재 시간을 비교하여 변화가 있는지 확인
-        const isFlipped = previousTimeString && digit !== previousTimeString[index];
+        const isFlipped = useFlip && previousTimeString && digit !== previousTimeString[index];
         return (
           <span key={`${type}-${index}-${digit}`} className={isFlipped ? 'flip' : ''}>
             {digit}
@@ -47,6 +48,18 @@ function DigitalClock() {
 
   return (
     <div>
+      <div className="button-container">
+        <button
+          className={`toggle-button ${!showSeconds ? 'active' : ''}`}
+          onClick={() => setShowSeconds(!showSeconds)}>
+          {showSeconds ? 'Show HH:MM' : 'Show HH:MM:SS'}
+        </button>
+        <button 
+          className={`toggle-button ${!useFlip ? 'active' : ''}`}
+          onClick={() => setUseFlip(!useFlip)}>
+          {useFlip ? 'Disable Flip' : 'Enable Flip'}
+        </button>
+      </div>
       <div className="clock-container">
         {renderDigits(hours, previousTime && formatDigit(previousTime.getHours()), 'hour')}
         :
@@ -54,9 +67,6 @@ function DigitalClock() {
         {showSeconds && ":"}
         {showSeconds && renderDigits(seconds, previousTime && formatDigit(previousTime.getSeconds()), 'second')}
       </div>
-      <button onClick={() => setShowSeconds(!showSeconds)}>
-        {showSeconds ? 'HH:MM' : 'HH:MM:SS'}
-      </button>
     </div>
 
   );
