@@ -10,6 +10,8 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 function App() {
   const [blocks, setBlocks] = useState([]);
   const [uniqueDates, setUniqueDates] = useState([]);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 800);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   function downloadJson(data, filename) {
     const fileData = JSON.stringify(data, null, 2);
@@ -111,6 +113,7 @@ function App() {
         const selectHeight = selectRef.current.offsetHeight;
         const parentHeight = selectRef.current.parentNode.offsetHeight;
         const topPosition = (parentHeight - selectHeight) / 2; // 중앙 위치 계산
+        // const topPosition = (parentHeight - selectHeight) / 1.5; // 중앙 위치 계산
         selectRef.current.style.top = `${topPosition}px`; // top 속성 조정
       }
     };
@@ -123,7 +126,7 @@ function App() {
     return () => {
       window.removeEventListener('resize', adjustSelectPosition);
     };
-  }, [selectedOption]); // 의존성 배열을 빈 배열로 설정하여 컴포넌트 마운트 시 1회 실행
+  }, [isMobile,isCollapsed,selectedOption]); // 의존성 배열을 빈 배열로 설정하여 컴포넌트 마운트 시 1회 실행
 
 
 
@@ -135,7 +138,13 @@ function App() {
   const deleteBlock = (blockIndex) => {
     setBlocks(currentBlocks => currentBlocks.filter((_, index) => index !== blockIndex));
   };
-
+  const updateBlock = (index, newBlockData) => {
+    setBlocks(currentBlocks => {
+      const updatedBlocks = [...currentBlocks];
+      updatedBlocks[index] = newBlockData; // 인덱스에 해당하는 시간 블록 업데이트
+      return updatedBlocks;
+    });
+  };
   const ModalDiv = () => {
     return (    
     <div className="modal">
@@ -172,7 +181,6 @@ function App() {
             </div>
         </div>)
   };
-  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
@@ -190,8 +198,6 @@ function App() {
       </div>
     );
   }
-
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 800);
 
   useEffect(() => {
     const handleResize = () => {
@@ -224,7 +230,7 @@ function App() {
           <DigitalClock />
         </div>
         <div style={{ display: 'flex', flex: 1 }}>
-          <div style={{ width: isCollapsed ? '0%' : (isMobile ? '50%' : '30%'), transition: 'width 0.3s', overflow: 'hidden' }}>
+          <div style={{ width: isCollapsed ? '0%' : (isMobile ? '55%' : '30%'), transition: 'width 0.3s', overflow: 'hidden' }}>
             {!isCollapsed && (
               <>
                 <ModalDiv />  
@@ -233,7 +239,7 @@ function App() {
           </div>
             {/* 오른쪽 패널 */}
           <ToggleArrow />
-          <div style={{ width: isCollapsed ? '95%' : (isMobile ? '45%' : '80%'), transition: 'width 0.3s' }}>
+          <div style={{ width: isCollapsed ? '95%' : (isMobile ? '45%' : '70%'), transition: 'width 0.3s' }}>
             <div>
             <div className="centered-container">
               <select value={selectedOption} onChange={e => setSelectedOption(e.target.value)} className="select-box">
@@ -254,7 +260,7 @@ function App() {
                   <TimeBlocksClock blocks={blocks} selectedDate={selectedDate} />
                 </div>
                 <div className="time-block-display">
-                  <TimeBlockDisplay blocks={blocks} selectedDate={selectedDate} deleteBlock={deleteBlock}/>
+                  <TimeBlockDisplay blocks={blocks} selectedDate={selectedDate} deleteBlock={deleteBlock} updateBlock={updateBlock}/>
                 </div>
                 </div>
               )}

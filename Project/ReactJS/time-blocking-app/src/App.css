@@ -302,7 +302,6 @@
   .time-blocks-date,
   .time-blocks-clock {
     height: auto;
-    position: static; /* 모바일 화면에서는 절대위치 대신 정적 위치 사용 */
   }
 
   .time-block-form,
