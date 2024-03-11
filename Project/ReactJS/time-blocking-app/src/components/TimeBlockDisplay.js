@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import './TimeBlockDisplay.css'; // Ensure to import your CSS correctly
+
 function DetailBlock({ index, block, updateBlock , ClickBlockDetail }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState({});
@@ -29,23 +31,46 @@ function DetailBlock({ index, block, updateBlock , ClickBlockDetail }) {
       <div className="details-content">
         {isEditing ? (
           <>
-            <label>날짜: <input type="date" value={editData.date} onChange={e => setEditData({ ...editData, date: e.target.value })} /></label>
-            <label>시작 시간: <input type="time" value={editData.startTime} onChange={e => setEditData({ ...editData, startTime: e.target.value })} /></label>
-            <label>종료 시간: <input type="time" value={editData.endTime} onChange={e => setEditData({ ...editData, endTime: e.target.value })} /></label>
-            <label>할 일: <input type="text" value={editData.task} onChange={e => setEditData({ ...editData, task: e.target.value })} /></label>
-            <button onClick={handleSaveClick}>저장</button>
-            <button onClick={handleCancelClick}>취소</button>
+            <div className="detail-form">
+              <label>날짜: <input type="date" value={editData.date} onChange={e => setEditData({ ...editData, date: e.target.value })} /></label>
+              <label>시작 시간: <input type="time" value={editData.startTime} onChange={e => setEditData({ ...editData, startTime: e.target.value })} /></label>
+              <label>종료 시간: <input type="time" value={editData.endTime} onChange={e => setEditData({ ...editData, endTime: e.target.value })} /></label>
+              <label>할 일: <input type="text" value={editData.task} onChange={e => setEditData({ ...editData, task: e.target.value })} /></label>
+              <div className="button-container">
+
+                <button onClick={handleSaveClick}>저장</button>
+                <button className="cancel" onClick={handleCancelClick}>취소</button>
+              </div>
+            </div>
           </>
         ) : (
           <>
-            <p className="detail"><span className="label">날짜:</span> {block.date}</p>
-            <p className="detail"><span className="label">시작 시간:</span> {block.startTime}</p>
-            <p className="detail"><span className="label">종료 시간:</span> {block.endTime}</p>
-            <p className="detail"><span className="label">할 일:</span> {block.task}</p>
-            <button onClick={handleEditClick}>편집</button>
-            <button className="close-btn" onClick={(e) => {
-              e.stopPropagation(); // 이벤트 버블링 방지
-              ClickBlockDetail(null)}}>상세 정보 닫기</button>
+            <div className="card">
+              <div className="detail-section">
+                <span className="detail-label">날짜</span>
+                <span className="detail-value">{block.date}</span>
+              </div>
+              <div className="detail-section">
+                <span className="detail-label">시작 시간</span>
+                <span className="detail-value">{block.startTime}</span>
+              </div>
+              <div className="detail-section">
+                <span className="detail-label">종료 시간</span>
+                <span className="detail-value">{block.endTime}</span>
+              </div>
+              <div className="detail-section">
+                <span className="detail-label">할 일</span>
+                <span className="detail-value">{block.task}</span>
+              </div>
+
+              <div className="button-container">
+                <button className="button edit-btn" onClick={handleEditClick}>편집</button>
+                <button className="button close-btn" onClick={(e) => {
+                  e.stopPropagation(); // 이벤트 버블링 방지
+                  ClickBlockDetail(null)}}>닫기</button>
+              </div>
+            </div>
+
           </>
         )}
       </div>

@@ -1,0 +1,79 @@
+.detail-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* 각 요소 간의 간격 */
+    margin-bottom: 20px; /* 폼 하단의 여백 */
+}
+
+.detail-form label {
+    display: flex;
+    align-items: center; /* 레이블 내의 요소들을 세로 중앙 정렬 */
+    justify-content: space-between; /* 요소들 사이에 공간을 균등 분배 */
+}
+
+.detail-form input,
+.detail-form button {
+    padding: 8px; /* 패딩 */
+    font-size: 16px; /* 글꼴 크기 */
+    border: 1px solid #ccc; /* 테두리 스타일 */
+    border-radius: 4px; /* 테두리 둥글기 */
+}
+
+/* 버튼 컨테이너 스타일 추가 */
+.buttons-container {
+    display: flex;
+    justify-content: flex-start; /* 버튼을 왼쪽 정렬 */
+    gap: 10px; /* 버튼 사이의 간격 */
+}
+
+.detail-form button {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border: none; /* 테두리 제거 */
+    flex-grow: 1; /* 버튼을 동일한 크기로 확장 */
+}
+
+.detail-form button:hover {
+    background-color: #0056b3;
+}
+
+.detail-form button.cancel {
+    background-color: #6c757d;
+}
+
+.detail-form button.cancel:hover {
+    background-color: #545b62;
+}
+
+.card {
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px; /* 그리드 항목 간의 간격 */
+    margin-bottom: 20px; /* 카드 하단의 여백 */
+}
+
+.detail-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-label {
+    color: #6c757d;
+    font-weight: bold; /* 레이블 글꼴 굵기 */
+    margin-bottom: 5px; /* 레이블과 값 사이의 간격 */
+}
+
+.detail-value {
+    font-size: 16px; /* 값의 글꼴 크기 */
+}
+
+.button-container {
+    grid-column: 1 / -1; /* 그리드 내에서 버튼 컨테이너를 전체 너비로 확장 */
+    display: flex;
+    justify-content: space-between; /* 버튼을 양쪽으로 분산 */
+}
