@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/react-time-block-schedule/static/css/main.eb4d2ba7.css",
-    "main.js": "/react-time-block-schedule/static/js/main.c7b250b9.js",
+    "main.js": "/react-time-block-schedule/static/js/main.17f4d5c6.js",
     "static/js/453.a5823103.chunk.js": "/react-time-block-schedule/static/js/453.a5823103.chunk.js",
     "index.html": "/react-time-block-schedule/index.html",
     "main.eb4d2ba7.css.map": "/react-time-block-schedule/static/css/main.eb4d2ba7.css.map",
-    "main.c7b250b9.js.map": "/react-time-block-schedule/static/js/main.c7b250b9.js.map",
+    "main.17f4d5c6.js.map": "/react-time-block-schedule/static/js/main.17f4d5c6.js.map",
     "453.a5823103.chunk.js.map": "/react-time-block-schedule/static/js/453.a5823103.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.eb4d2ba7.css",
-    "static/js/main.c7b250b9.js"
+    "static/js/main.17f4d5c6.js"
   ]
 }
