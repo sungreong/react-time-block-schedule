@@ -1,3 +1,5 @@
+
+
 import React, { useState, useEffect } from 'react';
 import './TimeBlockDisplay.css'; // Ensure to import your CSS correctly
 import { DetailBlock } from './TimeBlockDetails';
@@ -108,6 +110,7 @@ function TimeBlockDisplay({ blocks, selectedDate, deleteBlock, updateBlock  }) {
     '#f24411', // 95%
     '#f43a12', // 100% - 빨간색
   ];
+  
   return (
     <div>
       {filteredBlocks.length > 0 ? filteredBlocks.map((block, index) => {
@@ -144,32 +147,5 @@ function TimeBlockDisplay({ blocks, selectedDate, deleteBlock, updateBlock  }) {
     </div>
   );
 }
-//   return (
-//     <div>
-//       {filteredBlocks.length > 0 ? filteredBlocks.map((block, index) => (
-        
-//         <div key={index} className="time-block-item" onClick={() => ClickBlockDetail(index)} >
-//           {/*  */}
-//           <button className="delete-btn" onClick={(e) => {
-//             e.stopPropagation(); // 이벤트 버블링 방지
-//             deleteBlock(index); // 현재 블록 삭제
-//           }}>X</button>
-//           <p style={{margin : '5px'}}>{block.startTime} ~ {block.endTime}: {block.task}</p>
-//           <ProgressBar date={block.date} startTime={block.startTime} endTime={block.endTime} />
-//           {/* 선택된 블록의 상세 정보 표시 */}
-//           {selectedBlockId === index && (
-//             <DetailBlock 
-//             key={index} 
-//             index={index} 
-//             block={block} 
-//             updateBlock={updateBlock} 
-//             ClickBlockDetail={ClickBlockDetail}
-//           />
-//           )}
-//         </div>
-//       )) : <p>선택한 날짜에 해당하는 시간 블록이 없습니다.</p>}
-//     </div>
-//   );
-// }
 
 export default TimeBlockDisplay;
