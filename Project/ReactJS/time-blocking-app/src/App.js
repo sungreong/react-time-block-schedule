@@ -230,7 +230,7 @@ function App() {
           <DigitalClock />
         </div>
         <div style={{ display: 'flex', flex: 1 }}>
-          <div style={{ width: isCollapsed ? '0%' : (isMobile ? '55%' : '30%'), transition: 'width 0.3s', overflow: 'hidden' }}>
+          <div style={{ width: isCollapsed ? '0%' : (isMobile ? '65%' : '30%'), transition: 'width 0.3s', overflow: 'hidden' }}>
             {!isCollapsed && (
               <>
                 <ModalDiv />  
@@ -239,7 +239,7 @@ function App() {
           </div>
             {/* 오른쪽 패널 */}
           <ToggleArrow />
-          <div style={{ width: isCollapsed ? '95%' : (isMobile ? '45%' : '70%'), transition: 'width 0.3s' }}>
+          <div style={{ width: isCollapsed ? '95%' : (isMobile ? '35%' : '70%'), transition: 'width 0.3s' }}>
             <div>
             <div className="centered-container">
               <select value={selectedOption} onChange={e => setSelectedOption(e.target.value)} className="select-box">

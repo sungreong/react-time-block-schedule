@@ -77,3 +77,9 @@
     display: flex;
     justify-content: space-between; /* 버튼을 양쪽으로 분산 */
 }
+
+.detail-countdown {
+    display: flex;
+    justify-self: center; /* 카운트다운을 가운데 정렬 */
+    align-items: center; /* 요소들을 세로 중앙 정렬 */
+}
