@@ -1,4 +1,4 @@
-import React, { useEffect,useState, useRef,useMemo } from 'react';
+import React, { useEffect,useState, useRef } from 'react';
 import TimeBlockForm from './components/TimeBlockForm';
 import TimeBlockDisplay from './components/TimeBlockDisplay';
 import TimeBlocksClock from './components/TimeBlocksPieChart';
@@ -6,7 +6,9 @@ import MyCalendar from './components/Calendar';
 import DigitalClock from './components/DigitalClock';
 import './App.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Toast } from 'devextreme-react';
 function App() {
   const [blocks, setBlocks] = useState([]);
   const [uniqueDates, setUniqueDates] = useState([]);
@@ -64,6 +66,9 @@ function App() {
               startTime: formatTime(values[1]), // 시간 포맷 변환 적용
               endTime: formatTime(values[2]), // 시간 포맷 변환 적용
               task: values.slice(3).join(','), // task가 컴마를 포함할 수 있으므로, 나머지 모든 요소를 조인
+              //write alert data (start,end)
+              startAlertBefore: values[4],
+              endAlertBefore: values[5],
             };
             acc.push(formattedRow);
           }
@@ -182,11 +187,32 @@ function App() {
         </div>)
   };
 
-  const toggleSidebar = () => {
-    setIsCollapsed(!isCollapsed);
-    const arrow = document.querySelector('.arrow');
-    arrow.classList.toggle('collapsed');
-  };
+  useEffect(() => {
+    const checkTimeBlocksForNotification = () => {
+      const now = new Date();
+      blocks.forEach(block => {
+        const startDateTime = new Date(`${block.date}T${block.startTime}`);
+        const endDateTime = new Date(`${block.date}T${block.endTime}`);
+        
+        const startAlertMs = block.startAlertBefore * 60 * 1000;
+        const endAlertMs = block.endAlertBefore * 60 * 1000;
+        
+
+        const timeUntilStart = startDateTime - now;
+        if (timeUntilStart > 0 && timeUntilStart <= startAlertMs) {
+          toast.info(`"${block.task}"가 ${block.startAlertBefore}분 이내로 시작됩니다.`);
+        }
+
+        const timeUntilEnd = endDateTime - now;
+        if (timeUntilEnd > 0 && timeUntilEnd <= endAlertMs) {
+          toast.done(`"${block.task}"가 ${block.endAlertBefore}분 이내로 종료됩니다.`);
+        }
+      });
+    };
+
+    const intervalId = setInterval(checkTimeBlocksForNotification, 60000);
+    return () => clearInterval(intervalId);
+  }, [blocks]);
   function ToggleArrow() {
       const toggleSidebar = () => {
       setIsCollapsed(!isCollapsed);
@@ -210,6 +236,7 @@ function App() {
   }, []);
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+      <ToastContainer />
         {/* 왼쪽 패널 */}
         <div style={{
           display: 'flex', // Flexbox 레이아웃 적용

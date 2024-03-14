@@ -13,6 +13,8 @@ function TimeBlockForm({ onSubmit , onUpdateDate  }) {
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
   const [task, setTask] = useState('');
+  const [startAlertBefore, setStartAlertBefore] = useState(5); // 시작 전 알림 시간(분)
+  const [endAlertBefore, setEndAlertBefore] = useState(5); // 종료 전 알림 시간(분)
 
   
   useEffect(() => {
@@ -23,7 +25,7 @@ function TimeBlockForm({ onSubmit , onUpdateDate  }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit([{ date, startTime, endTime, task }]);
+    onSubmit([{ date, startTime, endTime, task, startAlertBefore, endAlertBefore }]);
     setStartTime('');
     setEndTime('');
     setTask('');
@@ -63,6 +65,7 @@ function TimeBlockForm({ onSubmit , onUpdateDate  }) {
   const handleTodaySetting = () => {
     const today = current_date();
     onUpdateDate(today); // 오늘 날짜로 모든 블록 업데이트
+    alert('오늘 날짜로 일정이 변경되었습니다.');
 
   }
   return (
@@ -105,6 +108,28 @@ function TimeBlockForm({ onSubmit , onUpdateDate  }) {
           value={task}
           onChange={(e) => setTask(e.target.value)}
           placeholder="할 일을 입력하세요"
+          required
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="startAlertBefore">시작 알림(분 전):</label>
+        <input
+          type="number"
+          id="startAlertBefore"
+          value={startAlertBefore}
+          onChange={(e) => setStartAlertBefore(e.target.value)}
+          min="0"
+          required
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="endAlertBefore">종료 알림(분 전):</label>
+        <input
+          type="number"
+          id="endAlertBefore"
+          value={endAlertBefore}
+          onChange={(e) => setEndAlertBefore(e.target.value)}
+          min="0"
           required
         />
       </div>
