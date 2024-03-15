@@ -137,6 +137,7 @@ function TimeBlockDisplay({ blocks, selectedDate, deleteBlock, updateBlock  }) {
                 key={index}
                 index={index} 
                 block={block} 
+                deleteBlock={deleteBlock}
                 updateBlock={updateBlock} 
                 ClickBlockDetail={ClickBlockDetail}
               />

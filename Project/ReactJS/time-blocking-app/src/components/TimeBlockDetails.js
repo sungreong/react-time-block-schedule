@@ -1,8 +1,7 @@
 import './TimeBlockDisplay.css'; // Ensure to import your CSS correctly
 import {Countdown} from './countdown/countdown';
 import React, { useState, useEffect } from 'react';
-
-function DetailBlock({ index, block, updateBlock , ClickBlockDetail }) {
+function DetailBlock({ index, block, deleteBlock,updateBlock , ClickBlockDetail }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState({});
 
@@ -79,6 +78,12 @@ function DetailBlock({ index, block, updateBlock , ClickBlockDetail }) {
                 <button className="button close-btn" onClick={(e) => {
                   e.stopPropagation(); // 이벤트 버블링 방지
                   ClickBlockDetail(null)}}>닫기</button>
+                <button className="button delete-btn" onClick={(e) => {
+                  e.stopPropagation(); // 이벤트 버블링 방지
+                  deleteBlock(index)
+                  ClickBlockDetail(null) // 삭제 후 상세보기 닫기
+                }
+                }>삭제</button>
               </div>
             </div>
             

@@ -3,7 +3,7 @@ import React, { useState , useEffect} from 'react';
 function TimeBlocksClock({ blocks, selectedDate }) {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [blockColors, setBlockColors] = useState({});
-
+  console.log("TimeBlocksClock",blocks)
   
   function updateTime() {
     // 'Asia/Seoul'을 예로 들지만, 필요에 따라 다른 타임존으로 변경 가능
@@ -146,26 +146,25 @@ function TimeBlocksClock({ blocks, selectedDate }) {
     return numbers;
   };
   // 각 시간에 대한 각도를 계산하고, 그 위치에 작은 막대기를 그리는 함수
-const drawClockMarkers = () => {
-  const markers = [];
-  for (let hour = 1; hour <= 24; hour++) {
-    const angle = (hour / 24) * 2 * Math.PI; // 시간에 따른 각도 계산 (라디안 단위)
-    const innerRadius = radius - 2; // 원에서 조금 안쪽으로
-    const outerRadius = radius + 2; // 원에서 바깥쪽으로
-    // 내부 꼭지점 좌표 (원에 더 가까움)
-    const innerX = cx + innerRadius * Math.cos(angle - Math.PI / 2);
-    const innerY = cy + innerRadius * Math.sin(angle - Math.PI / 2);
-    // 외부 꼭지점 좌표 (원에서 바깥쪽)
-    const outerX = cx + outerRadius * Math.cos(angle - Math.PI / 2);
-    const outerY = cy + outerRadius * Math.sin(angle - Math.PI / 2);
+  const drawClockMarkers = () => {
+    const markers = [];
+    for (let hour = 1; hour <= 24; hour++) {
+      const angle = (hour / 24) * 2 * Math.PI; // 시간에 따른 각도 계산 (라디안 단위)
+      const innerRadius = radius - 2; // 원에서 조금 안쪽으로
+      const outerRadius = radius + 2; // 원에서 바깥쪽으로
+      // 내부 꼭지점 좌표 (원에 더 가까움)
+      const innerX = cx + innerRadius * Math.cos(angle - Math.PI / 2);
+      const innerY = cy + innerRadius * Math.sin(angle - Math.PI / 2);
+      // 외부 꼭지점 좌표 (원에서 바깥쪽)
+      const outerX = cx + outerRadius * Math.cos(angle - Math.PI / 2);
+      const outerY = cy + outerRadius * Math.sin(angle - Math.PI / 2);
 
-    markers.push(
-      <line x1={innerX} y1={innerY} x2={outerX} y2={outerY} stroke="black" strokeWidth="1" />
-    );
-  }
-  return markers;
-};
-
+      markers.push(
+        <line x1={innerX} y1={innerY} x2={outerX} y2={outerY} stroke="black" strokeWidth="1" />
+      );
+    }
+    return markers;
+  };
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
       <svg width="100%" height="auto" viewBox={`0 0 ${viewBoxSize} ${viewBoxSize}`} preserveAspectRatio="xMidYMid meet">

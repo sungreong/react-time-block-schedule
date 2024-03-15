@@ -1,0 +1,15 @@
+.centered-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3vh;
+}
+
+
+.select-box {
+    width: 200px;
+}
+
+.select-box option {
+text-align: center;
+}

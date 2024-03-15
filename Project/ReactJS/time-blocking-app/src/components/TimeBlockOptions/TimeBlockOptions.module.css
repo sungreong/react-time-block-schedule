@@ -1,0 +1,51 @@
+.time-blocks-container {
+    display: flex;
+    flex-direction: row; /* 명시적으로 row로 설정, 이는 기본값이므로 생략 가능 */
+    width: 100%;
+}
+
+
+
+.time-blocks-clock {
+flex: 0 0 65%; /* 기존 설정 유지 */
+position: relative; /* 날짜 선택 select를 위한 포지셔닝 컨텍스트 설정 */
+display: flex; /* Flexbox 레이아웃 사용 */
+justify-content: center; /* 중앙 정렬 */
+align-items: center; /* 중앙 정렬 */
+height: 100vh; /* 컨테이너 높이 설정 */
+}
+
+.time-blocks-clock select {
+display: flex; /* Flexbox 레이아웃 사용 */
+justify-content: center; /* 중앙 정렬 */
+position: absolute; /* 절대 위치 */
+top: 300px; /* 상단으로부터의 거리 */
+z-index: 10; /* 다른 요소들 위에 위치 */
+}
+
+.time-block-display {
+flex: 0 0 30%; /* grow, shrink 비활성화 및 기본 크기 설정 */
+display: flex; /* Flexbox 레이아웃 사용 */
+flex-direction: column; 
+/* 자식 요소들을 수직 방향으로 배치 */
+/* align-items: center;  */
+/* 수직 방향의 중앙 정렬 */
+justify-content: center; /* 수평 방향의 중앙 정렬 */
+padding: 20px; /* 내부 여백 */
+gap: 10px; /* 자식 요소들 사이의 간격 */
+}
+
+
+@media (max-width: 1000px) {
+.time-blocks-container,
+.time-block-display,
+.time-blocks-clock {
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+}
+
+.time-blocks-clock {
+    height: auto;
+}
+}
