@@ -1,0 +1,13 @@
+.time-pie-chart-container {
+    display: 'flex';
+    justify-content: 'center';
+    align-items: 'center';
+    height: '100vh'
+}
+  
+  /* 화면 너비가 600px 이하일 경우 */
+@media (max-width: 800px) {
+    .time-pie-chart-container {
+        height: 90vh;
+    }
+}

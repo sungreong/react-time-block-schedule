@@ -48,7 +48,7 @@ function DigitalClock() {
 
   return (
     <div>
-      <div className="button-container">
+      <div className="clock-button-container">
         <button
           className={`toggle-button ${!showSeconds ? 'active' : ''}`}
           onClick={() => setShowSeconds(!showSeconds)}>

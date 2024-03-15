@@ -33,10 +33,10 @@
   100% { transform: rotateY(0deg); opacity: 1; }
 }
 
-.button-container {
+.clock-button-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 10px; /* 시계와 버튼 사이의 간격 */
+  margin-bottom: 15px; /* 시계와 버튼 사이의 간격 */
 }
 
 .toggle-button {

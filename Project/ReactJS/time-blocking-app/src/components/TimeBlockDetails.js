@@ -1,7 +1,7 @@
 import './TimeBlockDisplay.css'; // Ensure to import your CSS correctly
 import {Countdown} from './countdown/countdown';
 import React, { useState, useEffect } from 'react';
-function DetailBlock({ index, block, deleteBlock,updateBlock , ClickBlockDetail }) {
+function DetailBlock({ index, block, deleteBlock,updateBlock , ClickBlockDetail,tempRemoveBlock }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState({});
 
@@ -73,19 +73,29 @@ function DetailBlock({ index, block, deleteBlock,updateBlock , ClickBlockDetail 
                 <span className="detail-label">종료 알림</span>
                 <span className="detail-value">{block.endAlertBefore}분 전</span>
               </div>
-              <div className="button-container">
+            </div>
+            <div className="button-container">
                 <button className="button edit-btn" onClick={handleEditClick}>편집</button>
-                <button className="button close-btn" onClick={(e) => {
-                  e.stopPropagation(); // 이벤트 버블링 방지
-                  ClickBlockDetail(null)}}>닫기</button>
+                
                 <button className="button delete-btn" onClick={(e) => {
                   e.stopPropagation(); // 이벤트 버블링 방지
                   deleteBlock(index)
                   ClickBlockDetail(null) // 삭제 후 상세보기 닫기
                 }
                 }>삭제</button>
+                <button className="button temp-remove-btn" onClick={(e) => {
+                  e.stopPropagation(); // 이벤트 버블링 방지
+                  const isConfirmed = window.confirm('이 항목을 임시 삭제하시겠습니까?');
+                  if (isConfirmed){
+                    tempRemoveBlock(index)
+                    ClickBlockDetail(null) // 임시 삭제 후 상세보기 닫기
+                  }
+                }
+                }>임시 삭제</button>
+                <button className="button close-btn" onClick={(e) => {
+                  e.stopPropagation(); // 이벤트 버블링 방지
+                  ClickBlockDetail(null)}}>닫기</button>
               </div>
-            </div>
             
           </>
         )}

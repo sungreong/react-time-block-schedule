@@ -1,9 +1,8 @@
 import React, { useState , useEffect} from 'react';
-
+import styles from './TimeBlocksPieChart.module.css';
 function TimeBlocksClock({ blocks, selectedDate }) {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [blockColors, setBlockColors] = useState({});
-  console.log("TimeBlocksClock",blocks)
   
   function updateTime() {
     // 'Asia/Seoul'을 예로 들지만, 필요에 따라 다른 타임존으로 변경 가능
@@ -71,7 +70,7 @@ function TimeBlocksClock({ blocks, selectedDate }) {
     return <path d={d} fillOpacity={0.5} stroke="red" strokeWidth="0.5" />;
   };
 
-  const viewBoxSize = 150;
+  const viewBoxSize = 120;
   const radius = 45; // 원의 반지름
   const cx = viewBoxSize / 2; // viewBox의 중앙으로 조정
   const cy = viewBoxSize / 2; // viewBox의 중앙으로 조정
@@ -166,8 +165,12 @@ function TimeBlocksClock({ blocks, selectedDate }) {
     return markers;
   };
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-      <svg width="100%" height="auto" viewBox={`0 0 ${viewBoxSize} ${viewBoxSize}`} preserveAspectRatio="xMidYMid meet">
+    <div className={styles['time-pie-chart-container']}>
+      <svg 
+        width="100%"  
+        height="100vh"
+        viewBox={`0 0 ${viewBoxSize} ${viewBoxSize}`} 
+        preserveAspectRatio="xMidYMid meet">
         <circle cx={cx} cy={cy} r={radius} fill="none" stroke="black" />
         {drawClockMarkers()} {/* 작은 막대기 그리기 */}
         {blocks.map((block, index) => blockToPath(block, index))}

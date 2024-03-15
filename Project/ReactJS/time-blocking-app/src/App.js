@@ -1,9 +1,4 @@
 import React, { useEffect,useState, useRef } from 'react';
-import TimeBlockForm from './components/TimeBlockForm';
-import TimeBlockDisplay from './components/TimeBlockDisplay';
-import TimeBlocksClock from './components/TimeBlocksPieChart';
-import MyCalendar from './components/Calendar';
-import DigitalClock from './components/DigitalClock';
 import './App.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { ToastContainer, toast } from 'react-toastify';
@@ -13,7 +8,7 @@ import Modal from './components/Modal';
 import Header from './components/Header';
 import SelectOption from './components/SelectOption';
 import NotificationArea from './components/NotificationArea';
-import TimeBlockOptions from './components/TimeBlockOptions';
+import MainContent from './components/MainContent';
 function App() {
   const [blocks, setBlocks] = useState([]);
   const [uniqueDates, setUniqueDates] = useState([]);
@@ -40,6 +35,16 @@ function App() {
     setBlocks([...blocks, restoredBlock]);
     setTempRemovedBlocks(newTempRemovedBlocks);
   };
+
+  const permanentlyRemoveBlock = (blockIndex) => {
+    // tempRemovedBlocks 배열에서 blockIndex에 해당하는 항목을 완전히 제거
+    const isConfirmed = window.confirm('이 항목을 정말 삭제하시겠습니까?');
+    if (isConfirmed){
+      const newTempRemovedBlocks = tempRemovedBlocks.filter((_, index) => index !== blockIndex);
+      setTempRemovedBlocks(newTempRemovedBlocks);
+    }
+    
+  };
   const handleDownload = () => {
     downloadJson(blocks, 'timeBlocks.json');
   };
@@ -63,34 +68,8 @@ function App() {
   };
 
   const [selectedDate, setSelectedDate] = useState(''); // 날짜 선택을 위한 상태
-  const selectRef = useRef(null); // select 요소에 대한 참조 생성
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(''); // 컴포넌트 선택을 위한 상태
-  
-
-  useEffect(() => {
-    const adjustSelectPosition = () => {
-      if (selectRef.current) {
-        const selectHeight = selectRef.current.offsetHeight;
-        const parentHeight = selectRef.current.parentNode.offsetHeight;
-        const topPosition = (parentHeight - selectHeight) / 2; // 중앙 위치 계산
-        // const topPosition = (parentHeight - selectHeight) / 1.5; // 중앙 위치 계산
-        selectRef.current.style.top = `${topPosition}px`; // top 속성 조정
-      }
-    };
-
-    // 컴포넌트 마운트 시와 윈도우 크기 변경 시 위치 조정
-    adjustSelectPosition();
-    window.addEventListener('resize', adjustSelectPosition);
-
-    // cleanup 함수
-    return () => {
-      window.removeEventListener('resize', adjustSelectPosition);
-    };
-  }, [isMobile,isCollapsed,selectedOption]); // 의존성 배열을 빈 배열로 설정하여 컴포넌트 마운트 시 1회 실행
-
-
-
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
@@ -141,9 +120,12 @@ function App() {
         <div style={{ display: 'flex', flex: 1 }}>
           <div style={{ width: isCollapsed ? '0%' : (isMobile ? '65%' : '30%'), transition: 'width 0.3s', overflow: 'hidden' }}>
             {!isCollapsed && (
-              <>
-                <Modal toggleModal={toggleModal} addBlocks={addBlocks} updateBlocksDate={updateBlocksDate} handleFileChange={handleFileChange} handleDownload={handleDownload} />
-              </>
+              <Modal 
+               toggleModal={toggleModal} 
+               addBlocks={addBlocks} 
+               updateBlocksDate={updateBlocksDate} 
+               handleFileChange={handleFileChange} 
+               handleDownload={handleDownload} />
             )}
           </div>
             {/* 오른쪽 패널 */}
@@ -154,21 +136,23 @@ function App() {
               <div>
                 <SelectOption selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
               </div>
-              {selectedOption === 'timeBlocks' && (
-              <TimeBlockOptions 
-                selectRef = {selectRef}
-                uniqueDates = {uniqueDates}
-                blocks={blocks} 
-                selectedDate={selectedDate} 
-                setSelectedDate={setSelectedDate}
-                deleteBlock={deleteBlock} 
-                updateBlock={updateBlock} />)}
-              {selectedOption === 'calendar' && (
-                <div>
-                  <MyCalendar blocks={blocks} setBlocks={setBlocks} />
-                </div>
-              )}
-          </div>
+              <div>
+                <MainContent 
+                  selectedOption={selectedOption}
+                  uniqueDates={uniqueDates}
+                  blocks={blocks}
+                  selectedDate={selectedDate}
+                  setSelectedDate={setSelectedDate}
+                  deleteBlock={deleteBlock}
+                  updateBlock={updateBlock}
+                  setBlocks={setBlocks} 
+                  tempRemoveBlock = {tempRemoveBlock }
+                  tempRemovedBlocks={tempRemovedBlocks}
+                  restoreBlock={restoreBlock}
+                  permanentlyRemoveBlock={permanentlyRemoveBlock}
+                  />
+              </div>
+            </div>
         </div>
       </div>
     </div>  

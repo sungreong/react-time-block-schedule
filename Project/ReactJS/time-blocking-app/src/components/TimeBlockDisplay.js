@@ -3,24 +3,15 @@
 import React, { useState, useEffect } from 'react';
 import './TimeBlockDisplay.css'; // Ensure to import your CSS correctly
 import { DetailBlock } from './TimeBlockDetails';
+import {calculatePercentage} from '../utils/calculatePercentage';
 
-function getDateTime(date, time) {
-  return new Date(`${date}T${time}`);
-}
-function calculatePercentage(date,startTime, endTime) {
-  const startDateTime = getDateTime(date, startTime);
-  const endDateTime = getDateTime(date, endTime);
-  const now = new Date();
-  // 총 시간과 현재까지 경과한 시간 계산
-  // 전체 시간과 경과 시간을 밀리초로 계산합니다.
-  const totalTime = endDateTime - startDateTime;
-  const elapsedTime = now - startDateTime;
-  
-  // 진행률을 계산합니다. (0 ~ 100 사이의 값)
-  const percentage = Math.min(100, Math.max(0, (elapsedTime / totalTime) * 100));
-  return percentage;
-}
-function TimeBlockDisplay({ blocks, selectedDate, deleteBlock, updateBlock  }) {
+function TimeBlockDisplay({ 
+  blocks, 
+  selectedDate, 
+  deleteBlock, 
+  updateBlock,
+  tempRemoveBlock,
+  }) {
   const [selectedBlockId, setSelectedBlockId] = useState(null);
 
   // 선택된 날짜에 해당하는 blocks만 필터링
@@ -33,10 +24,7 @@ function TimeBlockDisplay({ blocks, selectedDate, deleteBlock, updateBlock  }) {
       // 클릭한 블록이 이미 선택된 블록이면 선택 해제, 아니면 해당 블록 선택
       return prevBlockId === blockId ? null : blockId;
     });
-  };
-
-  
-  // TODO: 에러 발생
+  };  
   // 버튼을 클릭해도 닫히지 않는 이슈!
   const ClickBlockDetail = (blockId) => {
     // 이벤트 버블링 방지 로직은 이 함수에서는 필요하지 않음
@@ -140,6 +128,7 @@ function TimeBlockDisplay({ blocks, selectedDate, deleteBlock, updateBlock  }) {
                 deleteBlock={deleteBlock}
                 updateBlock={updateBlock} 
                 ClickBlockDetail={ClickBlockDetail}
+                tempRemoveBlock={tempRemoveBlock}
               />
             )}
           </div>

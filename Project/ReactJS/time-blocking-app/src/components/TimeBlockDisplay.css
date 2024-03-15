@@ -19,13 +19,6 @@
     border-radius: 4px; /* 테두리 둥글기 */
 }
 
-/* 버튼 컨테이너 스타일 추가 */
-.buttons-container {
-    display: flex;
-    justify-content: flex-start; /* 버튼을 왼쪽 정렬 */
-    gap: 10px; /* 버튼 사이의 간격 */
-}
-
 .detail-form button {
     background-color: #007bff;
     color: white;
@@ -72,14 +65,51 @@
     font-size: 16px; /* 값의 글꼴 크기 */
 }
 
-.button-container {
-    grid-column: 1 / -1; /* 그리드 내에서 버튼 컨테이너를 전체 너비로 확장 */
-    display: flex;
-    justify-content: space-between; /* 버튼을 양쪽으로 분산 */
-}
 
 .detail-countdown {
     display: flex;
     justify-self: center; /* 카운트다운을 가운데 정렬 */
     align-items: center; /* 요소들을 세로 중앙 정렬 */
 }
+
+.temp-remove-btn {
+    margin-left: 10px; /* 삭제 버튼과 간격 추가 */
+    background-color: #f44336; /* 빨간색 배경 */
+    color: white; /* 텍스트 색상 */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+.temp-remove-btn:hover {
+background-color: #d32f2f; /* 호버 시 색상 변경 */
+}
+
+.button-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4개의 버튼을 위한 그리드 컬럼 */
+    gap: 10px; /* 버튼 사이 간격 */
+    padding: 10px; /* 컨테이너 내부 여백 */
+}
+
+.button {
+    padding: 10px;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    color: #ffffff;
+}
+
+.edit-btn { background-color: #4caf50; }
+.edit-btn:hover { background-color: #43a047; }
+
+.close-btn { background-color: #f44336; }
+.close-btn:hover { background-color: #d32f2f; }
+
+.delete-btn { background-color: #ff5722; }
+.delete-btn:hover { background-color: #e64a19; }
+
+.temp-remove-btn { background-color: #2196f3; }
+.temp-remove-btn:hover { background-color: #1e88e5; }
