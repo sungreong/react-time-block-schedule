@@ -35,14 +35,14 @@ header h1 {
 .flipClock {
   display: flex;
   justify-content: space-between;
-  width: calc(3 * 80px + 80px);
+  width: calc(3 * 30px + 10px);
 }
 
 .flipUnitContainer {
   display: block;
   position: relative;
-  width: 100px;
-  height: 90px;
+  width: 30px;
+  height: 30px;
   perspective-origin: 50% 50%;
   perspective: 300px;
   background-color: white;
@@ -61,7 +61,7 @@ header h1 {
 }
 
 .upperCard span, .lowerCard span {
-  font-size: 3em;
+  font-size: 1.5em;
   font-family: 'Droid Sans Mono', monospace;
   font-weight: lighter;
   color: rgba(0, 0, 0, 0.8);
@@ -102,7 +102,7 @@ header h1 {
 
 .flipCard span {
   font-family: 'Droid Sans Mono', monospace;
-  font-size: 3em;
+  font-size: 1.5em;
   font-weight: lighter;
   color: rgba(0, 0, 0, 0.8);
 }
