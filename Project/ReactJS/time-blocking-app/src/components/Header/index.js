@@ -1,6 +1,6 @@
 import React from 'react';
 import DigitalClock from '../DigitalClock';
-
+import FlipClock from '../FlipClock/FlipClock';
 const Header = () => (
   <div style={{
     display: 'flex',
@@ -14,7 +14,7 @@ const Header = () => (
     <div style={{ marginRight: '20px', fontSize: '24px', fontWeight: 'bold' }}>
       시간 스케줄 관리 앱
     </div>
-    <DigitalClock />
+    <FlipClock />
   </div>
 );
 
